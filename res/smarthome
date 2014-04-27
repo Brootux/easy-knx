@@ -1,0 +1,77 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:             smarthome.py
+# Required-Start:       $remote_fs $syslog $time $network
+# Required-Stop:        $remote_fs $syslog $time $network
+# Default-Start:        2 3 4 5
+# Default-Stop:
+# Short-Description:    smarthome service
+### END INIT INFO
+
+#set -e
+
+if [ ! -x /usr/local/smarthome/bin/smarthome.py ]
+then
+  echo "smarthome executable does not exist under /usr/local/smarthome/bin"
+fi
+
+#umask 022
+
+SH_USER=pi
+
+# PID file
+PIDFILE=/var/run/smarthome.pid
+
+case "$1" in
+  start)
+    if [ -e $PIDFILE ]
+    then
+      echo "smarthome already running (or remove ${PIDFILE})"
+      exit 1
+    fi
+    
+    echo "Starting smarthome daemon"
+    /usr/local/smarthome/bin/smarthome.py
+    
+    if [ $? ]
+    then
+      touch $PIDFILE
+      chown $SH_USER $PIDFILE
+      echo "smarthome running..."
+    else
+      echo "ERROR smarthome could not start"
+    fi
+  ;;
+  
+  stop)
+     if [ ! -e $PIDFILE ]
+     then
+       echo "smarthome is not running, doing nothing"
+       exit 1
+     fi
+     
+     echo "Stopping smarthome daemon"
+     /usr/local/smarthome/bin/smarthome.py -s
+     
+     if [ $? ]
+     then
+       rm $PIDFILE
+       echo "smarthome was stopped successfuly"
+     else
+       echo "ERROR could not stop smarthome"
+     fi
+  ;;
+
+  restart)
+    $0 stop
+    $0 start
+  ;;
+  
+  status)
+    status_of_proc /usr/local/smarthome/bin/smarthome smarthome
+    exit 0
+  ;;
+esac
+
+exit 0
+
