@@ -83,6 +83,8 @@ installEibd()
 	wget -N https://github.com/selfbus/linux-bus-tools/raw/master/raspberry/Scripts/eibd
 	chmod a+x eibd
 	update-rc.d eibd defaults
+	# Start eibd
+	service eibd start
 }
 
 installLinknx()
@@ -139,6 +141,8 @@ installSmartHomePy()
 	chmod 755 /etc/init.d/smarthome
 	# Add startup-script to boot-process
 	update-rc.d smarthome defaults
+	# Start smarthome
+	service smarthome start
 }
 
 installKnxWeb2()
