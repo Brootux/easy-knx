@@ -46,8 +46,14 @@ The scripts in the "tools" are meant to be little helper-scripts for creating yo
 
 # SmartHome configuration
 
-ToDo
+While the installation, there is a example configuration copied into the smarthome folder. You can find all configuration-files in the following folders:
 
+  * `/usr/local/smarthome/...`
+   * __etc/__: general smarthome configuration files
+   * __items/__: configuration of items, you can use for example in SmartVisu
+
+It is highly recommended to change the example configuration to match your needs. You can find more about the general and item configuration at http://mknx.github.io/smarthome/config.html and for plugins you can read more at .
+http://mknx.github.io/smarthome/plugin.html.
 # SmartVisu configuration
 
 ToDo
