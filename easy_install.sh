@@ -133,6 +133,11 @@ installSmartHomePy()
 	tar xvzf /tmp/${smarthomeVersion}.tar.gz
 	# Rename folder to just "smarthome"
 	mv smarthome-${smarthomeVersion} smarthome
+	# Copy example configuration into smarthome
+	cp -f $path/res/smarthome.conf /usr/local/smarthome/etc
+	cp -f $path/res/logic.conf /usr/local/smarthome/etc
+	cp -f $path/res/plugin.conf /usr/local/smarthome/etc
+	cp -f $path/res/knx.conf /usr/local/smarthome/items
 	# Setup proper rights for user pi
 	chgrp pi smarthome
 	# Move startup-script to the proper place (/etc/init.d/)
