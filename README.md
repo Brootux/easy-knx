@@ -16,9 +16,10 @@ This project can be used to simply install everything needed for basic service o
 
 # Installation
 
-## Prerequesites
+## Prerequisites
 
   * This script(s) is assuming, that its running on a freh installed SD-Card-Image. So there is no guarantee to work on systems where i.e. an older Apache version is already running!
+  * If you run this script a second time, be sure to backup your configuration-files before. They may be overwritten!
   * The Pi has to be connected to the internet.
 
 ## Hardware setup
@@ -30,6 +31,10 @@ You can use the "normal" Freebus/Selfbus KNX-Adapter (FT1.2 , http://selfbus.myx
 * Clone this git-repository
   * `git clone https://github.com/Brootux/easy-knx.git`
   * change into the new directory `cd rc_switch_server.py`
+* Setup what to install
+  * You can comment-out what you do not want to install with a trailing `#` on a line inside the function `installTheFollwing`
+  * i.e. you can skip installation of LinKNX by commenting-out via `#installLinknx`
+  * You have to do this with your favourite text-editor! (i.e. nano, vi, vim)
 * run the installRCS.sh bash-script (as root or with sudo)
   * `./easy_install.sh`
   * maybe you have to run `chmod 755 easy_install.sh` first!
