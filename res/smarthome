@@ -12,10 +12,11 @@
 
 if [ ! -x /usr/local/smarthome/bin/smarthome.py ]
 then
+  echo
   echo "smarthome executable does not exist under /usr/local/smarthome/bin"
+  echo
 fi
 
-#umask 022
 
 SH_USER=pi
 
@@ -26,7 +27,11 @@ case "$1" in
   start)
     if [ -e $PIDFILE ]
     then
-      echo "smarthome already running (or remove ${PIDFILE})"
+      echo
+      echo "smarthome already running, stop it with \"service smarthome stop\""
+      echo
+      echo "(maybe you have to delete this file: ${PIDFILE})"
+      echo
       exit 1
     fi
     
@@ -40,6 +45,30 @@ case "$1" in
       echo "smarthome running..."
     else
       echo "ERROR smarthome could not start"
+    fi
+  ;;
+  
+  debug)
+    if [ -e $PIDFILE ]
+    then
+      echo
+      echo "smarthome already running, stop it with \"service smarthome stop\""
+      echo
+      echo "(maybe you have to delete this file: ${PIDFILE})"
+      echo
+      exit 1
+    fi
+    
+    echo "Starting smarthome daemon in debug-mode"
+    /usr/local/smarthome/bin/smarthome.py -d &
+    
+    if [ $? ]
+    then
+      touch $PIDFILE
+      chown $SH_USER $PIDFILE
+      echo "smarthome running in debug-mode..."
+    else
+      echo "ERROR smarthome could not start in debug-mode"
     fi
   ;;
   
@@ -67,9 +96,9 @@ case "$1" in
     $0 start
   ;;
   
-  status)
-    status_of_proc /usr/local/smarthome/bin/smarthome smarthome
-    exit 0
+  restart-debug)
+    $0 stop
+    $0 debug
   ;;
 esac
 
