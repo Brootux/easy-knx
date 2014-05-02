@@ -1,7 +1,39 @@
 #!/bin/sh
-# $Id$
+#
+# Bash-Script to install neccessary packets and files for house-automation
+# This script is based on "selfbus_eib.sh" from https://github.com/selfbus/linux-bus-tools
+#
+#
+# Author: Brootux 
+#         (https://github.com/Brootux, http://brootux.wordpress.com/)
 
 path=$(pwd)
+
+installTheFollowing()
+{
+	# Neccesary steps (dont remove any)
+	updateApt
+	installPrerequisites
+	
+	# Setup from selfbus-script
+	installEibd
+	installLinknx
+	installKnxWeb2
+
+	# extended steps
+	installSmartHomePy
+	installSmartVISU
+	setupNavigation
+	freeTTYAMA0
+
+	# Print some steps, the user has to do manually
+	exitInformations
+}
+
+########################################################################
+# You should not manipulate anything from here downwards!
+# (Just if you know what u are doing)
+########################################################################
 
 checkRights()
 {
@@ -70,6 +102,7 @@ installPthsem()
 
 installEibd()
 {
+	installPthsem
 	echo
 	echo
 	echo "##############################################################################"
@@ -140,7 +173,7 @@ installSmartHomePy()
 	cp -f $path/res/knx.conf /usr/local/smarthome/items
 	# Setup proper rights for user pi
 	chgrp pi smarthome
-	# Move startup-script to the proper place (/etc/init.d/)
+	# Move startup-script to the right place (/etc/init.d/)
 	cp -f $path/res/smarthome /etc/init.d/
 	# Setup proper rights for startup script
 	chmod 755 /etc/init.d/smarthome
@@ -237,22 +270,8 @@ exitInformations()
 }
 
 
-# check if the script is run as root
+# Check if the script is run as root
 checkRights
 
-# steps from free-/self-bus
-updateApt
-installPrerequisites
-installPthsem
-installEibd
-installLinknx
-installKnxWeb2
-
-# extended steps
-installSmartHomePy
-installSmartVISU
-setupNavigation
-freeTTYAMA0
-
-# print some steps, the user has to do manually
-exitInformations
+# Start installation
+installTheFollowing
