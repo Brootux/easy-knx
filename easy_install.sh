@@ -168,9 +168,8 @@ installSmartHomePy()
 	apt-get -y install openntpd python3 python3-dev python3-setuptools
 	easy_install3 pip
 	pip3.2 install ephem
-	# Create folder for smarthome in given path
-	mkdir /usr/local/smarthome
-	cd /usr/local/smarthome
+	# Change to given path for installation of smarthome
+	cd /usr/local
 	# Clone smarthome via git from GitHub
 	git clone https://github.com/mknx/smarthome.git
 	# Copy example configuration into smarthome
