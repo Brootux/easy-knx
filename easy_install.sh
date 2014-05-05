@@ -13,6 +13,7 @@ installTheFollowing()
 {
 	# Neccesary steps (dont remove any)
 	updateApt
+	#upgradeSystem
 	installPrerequisites
 	
 	# Setup from selfbus-script
@@ -59,11 +60,20 @@ updateApt()
 	echo "##############################################################################"
 	# Update apt
 	apt-get -y update
-	# Upgrade apt
-	#apt-get -y upgrade
 	# Install prerequisites
 	apt-get -y install tmux vim
 	apt-get -y install libmysqlclient-dev liblog4cpp5-dev libxml2-dev libesmtp-dev liblua5.1-0-dev libcurl4-openssl-dev
+}
+
+upgradeSystem()
+{
+	echo
+	echo
+	echo "##############################################################################"
+	echo "# Upgrading System..."
+	echo "##############################################################################"
+	# Upgrade apt
+	apt-get -y upgrade
 }
 
 installPrerequisites()
@@ -149,7 +159,7 @@ installSmartHomePy()
 	echo
 	echo
 	echo "##############################################################################"
-	echo "# Load and install SmartHome.py..."
+	echo "# Load and install latest SmartHome.py..."
 	echo "##############################################################################"
 	# Install the following packages
 	#    - openntpd (for network time, normally replaces "ntp")
@@ -158,14 +168,11 @@ installSmartHomePy()
 	apt-get -y install openntpd python3 python3-dev python3-setuptools
 	easy_install3 pip
 	pip3.2 install ephem
-	# Download smarthome
-	smarthomeVersion="1.0"
-	wget https://github.com/mknx/smarthome/archive/${smarthomeVersion}.tar.gz -O /tmp/${smarthomeVersion}.tar.gz
-	# Install smarthome in given path
-	cd /usr/local
-	tar xvzf /tmp/${smarthomeVersion}.tar.gz
-	# Rename folder to just "smarthome"
-	mv smarthome-${smarthomeVersion} smarthome
+	# Create folder for smarthome in given path
+	mkdir /usr/local/smarthome
+	cd /usr/local/smarthome
+	# Clone smarthome via git from GitHub
+	git clone https://github.com/mknx/smarthome.git
 	# Copy example configuration into smarthome
 	cp -f $path/res/smarthome.conf /usr/local/smarthome/etc
 	cp -f $path/res/logic.conf /usr/local/smarthome/etc
