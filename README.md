@@ -46,6 +46,11 @@ You can use the "normal" Freebus/Selfbus KNX-Adapter (FT1.2 , http://selfbus.myx
 The scripts in the "tools" are meant to be little helper-scripts for creating your Home-Automation System. Currently there are:
 
 * delete_smartVisu_Cache.sh - deletes the temporary files of SmartVisu to recreate the cached files on visit
+* update_smartHome.sh - trys to update the smarthome installation via pulling the current version from github.
+
+# Tweaks
+
+The main-logic module smartHome was installed by simply cloning the current github repository. So you can handle the folder `/usr/local/smarthome` as a normal git repository. If you i.e. want to use the latest functions of smartHome, you can use their develop-branch by using the `git checkout develop` command.
 
 # What now?
 
