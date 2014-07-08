@@ -166,6 +166,7 @@ installSmartHomePy()
 	#    - python with addtionally tools
 	#    - ephem (for sunrise/sunset handling)
 	apt-get -y install openntpd python3 python3-dev python3-setuptools
+    apt-get purge ntp
 	easy_install3 pip
 	pip3.2 install ephem
 	# Change to given path for installation of smarthome
