@@ -220,8 +220,10 @@ installSmartVISU()
 	echo "##############################################################################"
 	# Download smartVisu into "/var/www/"
 	cd /var/www
-	visuName="smartVISU_2.7.zip"
-	wget https://smartvisu.googlecode.com/files/$visuName
+	#visuName="smartVISU_2.7.zip"
+	#wget https://smartvisu.googlecode.com/files/$visuName
+	visuName="smartVISU_2.8.zip"
+	wget https://www.smartvisu.de/download/$visuName
 	# Unzip smartVisu and remove zipped package
 	unzip $visuName
 	rm $visuName
